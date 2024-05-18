@@ -12,8 +12,10 @@ pfinal=startp+rechplus+endp
 request = requests.get(pfinal)
 soup=bs(request.text,"html.parser")
 images = soup.find_all('img')
-
-max_images=int(input("nombre d'image que l'on veut télécharger : "))*2
+for img in images:
+    if img==None:
+        del(images[img])
+max_images=int(input("nombre d'image que l'on veut télécharger : "))
 i=1
 for j,img in enumerate(images[:max_images]):
         img_url = img.get('src')
@@ -25,3 +27,4 @@ for j,img in enumerate(images[:max_images]):
             with open(save_path, 'wb') as file:
                 for chunk in response.iter_content(1024):  
                     file.write(chunk)
+      
